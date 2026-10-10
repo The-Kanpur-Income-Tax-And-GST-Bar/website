@@ -11,6 +11,9 @@ Pushing to `main` publishes it in about 2 minutes.
 1. **Never publish a woman member's phone number.** This is the Association's decision. In `committee.yaml`,
    women members have no `phone:` line. Keep it that way, including for new members.
 2. **Write "(Regd.)" / "Registered" / "(पंजीकृत)". Never write "®".** The name is a registered association, not a trademark.
+   **Always start the name with "The"** (**"द"** in Hindi), wherever it is written:
+   "The Kanpur Income Tax and GST Bar Association (Regd.), Kanpur" / "द कानपुर इनकम टैक्स एंड जीएसटी बार एसोसिएशन (पंजीकृत), कानपुर".
+   Never shorten it to "Kanpur Income Tax & GST Bar". The short form is "The Kanpur Income Tax and GST Bar".
 3. **No Zoom IDs, passcodes or private links** on event pages. Strip phone numbers from posters
    unless the people shown have agreed to publish them.
 4. **No advertising language about individual advocates** (Bar Council of India Rule 36). Use plain facts only:
