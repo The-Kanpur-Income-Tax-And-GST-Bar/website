@@ -78,6 +78,9 @@ The field rules for every content type are in `src/content.config.ts`.
    repo. Any push restarts it, or re-enable "Deploy to GitHub Pages" under the repo's **Actions** tab.
    The poster (or the first photo) becomes the preview image when the event link is shared on WhatsApp.
 5. **After the event**, add photos to the same folder and list them under `photos:`. They also appear in the Gallery.
+6. **Recording**: if the event was recorded and uploaded to YouTube, add `video: https://www.youtube.com/watch?v=...` to the front matter.
+   The video plays on the event page, and the event card gets a "Recording" label. Do not use the flyer as `poster` if it
+   shows a Zoom ID or passcode (golden rule 3); leave `poster` out instead.
 
 ### Add a press clipping
 Create `src/content/press/YYYY-MM-DD-outlet-topic.yaml`:

@@ -5,6 +5,7 @@ import Base from '../../../layouts/Base.astro';
 import PressItem from '../../../components/PressItem.astro';
 import { formatDate, getLang, href, t } from '../../../lib/i18n';
 import { useUI } from '../../../lib/ui';
+import { youtubeId } from '../../../lib/video';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -16,7 +17,8 @@ export async function getStaticPaths() {
 const { event } = Astro.props;
 const lang = getLang(Astro.params.lang);
 const ui = useUI(lang);
-const { title, date, time, venue, summary, guests, partners, poster, photos, kind, body_hi } = event.data;
+const { title, date, time, venue, summary, guests, partners, poster, photos, kind, video, body_hi } = event.data;
+const videoId = video ? youtubeId(video) : null;
 const { Content } = await render(event);
 const press = (await getCollection('press')).filter((p) => p.data.event?.id === event.id);
 const share = poster ?? photos[0]?.src;
@@ -36,6 +38,24 @@ const shareImage = share ? (await getImage({ src: share, width: 1200, format: 'j
     <div class="wrap section layout">
       <div class="content">
         {poster && <Image src={poster} alt={t(title, lang)} width={1100} class="poster" />}
+
+        {videoId && (
+          <section>
+            <h2>{ui('events.video')}</h2>
+            <div class="video">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                title={t(title, lang)}
+                loading="lazy"
+                allow="encrypted-media; picture-in-picture; fullscreen"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <p class="video-link"><a href={video} rel="noopener">{ui('events.watchYoutube')} ↗</a></p>
+          </section>
+        )}
+
         {lang === 'hi' && body_hi ? <p>{body_hi}</p> : <Content />}
 
         {photos.length > 0 && (
@@ -93,6 +113,9 @@ const shareImage = share ? (await getImage({ src: share, width: 1200, format: 'j
   @media (min-width: 56rem) { .layout { grid-template-columns: 1fr 20rem; align-items: start; } .details { position: sticky; top: 6rem; } }
   .content > * + * { margin-top: 1.5rem; }
   .poster { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; }
+  .video { aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: var(--navy); }
+  .video iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .video-link { margin: 0.6rem 0 0; font-size: 0.95rem; }
   .photos { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
   figure { margin: 0; }
   figure img { border-radius: var(--radius); width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }

@@ -7,7 +7,7 @@ import { useUI } from '../lib/ui';
 interface Props { event: CollectionEntry<'events'>; lang: Lang }
 const { event, lang } = Astro.props;
 const ui = useUI(lang);
-const { title, date, venue, kind, poster, photos } = event.data;
+const { title, date, venue, kind, poster, photos, video } = event.data;
 const cover = poster ?? photos[0]?.src;
 ---
 <article class="card event">
@@ -22,7 +22,7 @@ const cover = poster ?? photos[0]?.src;
       )}
   </a>
   <div class="body">
-    <p class="meta"><span class="tag">{ui(`kind.${kind}`)}</span> <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date, lang)}</time></p>
+    <p class="meta"><span class="tag">{ui(`kind.${kind}`)}</span> {video && <span class="tag rec">{ui('events.recording')}</span>} <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date, lang)}</time></p>
     <h3><a href={href(lang, `events/${event.id}`)}>{t(title, lang)}</a></h3>
     <p class="venue">{t(venue, lang)}</p>
   </div>
@@ -36,6 +36,7 @@ const cover = poster ?? photos[0]?.src;
   .day { font-family: var(--font-display); font-size: 3rem; line-height: 1; color: #fff; }
   .body { padding: 1rem 1.1rem 1.25rem; }
   .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .rec { background: var(--navy); color: #fff; }
   h3 { margin: 0 0 0.35rem; }
   h3 a { color: var(--navy); text-decoration: none; }
   h3 a:hover { color: var(--gold); }

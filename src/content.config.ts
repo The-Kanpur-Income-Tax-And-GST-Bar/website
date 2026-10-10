@@ -2,6 +2,7 @@ import { defineCollection, reference } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { parse as parseYaml } from 'yaml';
+import { youtubeId } from './lib/video';
 
 /** Text in both languages. Hindi is optional: pages fall back to English. */
 const text = z.object({ en: z.string(), hi: z.string().optional() });
@@ -52,6 +53,8 @@ const events = defineCollection({
       partners: text.optional(),
       poster: image().optional(),
       photos: z.array(z.object({ src: image(), caption: text.optional() })).default([]),
+      /** YouTube link to the recording. It is embedded on the event page. */
+      video: z.url().refine((u) => youtubeId(u) !== null, 'video must be a YouTube link').optional(),
       body_hi: z.string().optional(),
     }),
 });
