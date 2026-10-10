@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, href, t, type Lang } from '../lib/i18n';
+import { useUI } from '../lib/ui';
+
+interface Props { event: CollectionEntry<'events'>; lang: Lang }
+const { event, lang } = Astro.props;
+const ui = useUI(lang);
+const { title, date, venue, kind, poster, photos } = event.data;
+const cover = poster ?? photos[0]?.src;
+---
+<article class="card event">
+  <a class="cover" href={href(lang, `events/${event.id}`)} tabindex="-1" aria-hidden="true">
+    {cover
+      ? <Image src={cover} alt="" width={640} class="cover-img" />
+      : (
+        <div class="cover-date">
+          <span class="day">{formatDate(date, 'en', { day: '2-digit' })}</span>
+          <span>{formatDate(date, lang, { month: 'short', year: 'numeric' })}</span>
+        </div>
+      )}
+  </a>
+  <div class="body">
+    <p class="meta"><span class="tag">{ui(`kind.${kind}`)}</span> <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date, lang)}</time></p>
+    <h3><a href={href(lang, `events/${event.id}`)}>{t(title, lang)}</a></h3>
+    <p class="venue">{t(venue, lang)}</p>
+  </div>
+</article>
+
+<style>
+  .event { overflow: hidden; display: flex; flex-direction: column; }
+  .cover { display: block; aspect-ratio: 16 / 9; background: var(--navy); }
+  .cover-img { width: 100%; height: 100%; object-fit: cover; }
+  .cover-date { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--gold-soft); background: radial-gradient(circle at 30% 20%, var(--navy-2), var(--navy)); }
+  .day { font-family: var(--font-display); font-size: 3rem; line-height: 1; color: #fff; }
+  .body { padding: 1rem 1.1rem 1.25rem; }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
+  h3 { margin: 0 0 0.35rem; }
+  h3 a { color: var(--navy); text-decoration: none; }
+  h3 a:hover { color: var(--gold); }
+  .venue { margin: 0; color: var(--muted); font-size: 0.95rem; }
+</style>

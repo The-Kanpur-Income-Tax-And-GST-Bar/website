@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getSite } from '../../lib/site';
+import { getLang, langPaths, t } from '../../lib/i18n';
+import { useUI } from '../../lib/ui';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ui = useUI(lang);
+const site = await getSite();
+
+// TODO: replace the placeholder story and aims once the Association supplies them.
+const aims = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+  'Duis aute irure dolor in reprehenderit in voluptate velit esse.',
+];
+---
+<Base lang={lang} path="about" title={ui('about.title')}>
+  <PageHeader title={ui('about.title')} lead={`${t(site.name, lang)} ${ui('regd')}`} />
+  <section class="section">
+    <div class="wrap layout">
+      <div>
+        <p class="placeholder-note">{ui('placeholder')}</p>
+        <h2>{ui('about.story')}</h2>
+        <p class="placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p class="placeholder">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2>{ui('about.aims')}</h2>
+        <ol class="aims">
+          {aims.map((aim) => <li class="placeholder">{aim}</li>)}
+        </ol>
+      </div>
+      <aside class="card facts">
+        <h2>{ui('about.facts')}</h2>
+        <dl>
+          <dt>{ui('about.established')}</dt>
+          <dd>{site.established}</dd>
+          <dt>{ui('about.registration')}</dt>
+          <dd>{t(site.registered, lang)}</dd>
+          <dt>{ui('about.office')}</dt>
+          <dd>{t(site.address, lang)}</dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .layout { display: grid; gap: 2.5rem; }
+  @media (min-width: 56rem) { .layout { grid-template-columns: 1fr 20rem; align-items: start; } }
+  .aims { padding-left: 1.25rem; }
+  .aims li { margin-bottom: 0.5rem; }
+  .facts { padding: 1.5rem; border-top: 3px solid var(--gold); }
+  .facts h2 { font-size: 1.25rem; }
+  dl { margin: 0; }
+  dt { font-size: 0.8rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
+  :lang(hi) dt { text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+  dd { margin: 0.15rem 0 1rem; }
+</style>

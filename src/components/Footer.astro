@@ -1,0 +1,50 @@
+---
+import Logo from './Logo.astro';
+import { getSite } from '../lib/site';
+import { href, t, type Lang } from '../lib/i18n';
+import { useUI } from '../lib/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ui = useUI(lang);
+const site = await getSite();
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-brand">
+        <Logo size={56} />
+        <strong>{t(site.name, lang)} {ui('regd')}</strong>
+      </div>
+      <p>{t(site.registered, lang)} · {ui('est')} {site.established}</p>
+    </div>
+    <div>
+      <h2>{ui('contact.address')}</h2>
+      <p>{t(site.address, lang)}</p>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href={href(lang, 'about')}>{ui('nav.about')}</a></li>
+        <li><a href={href(lang, 'committee')}>{ui('nav.committee')}</a></li>
+        <li><a href={href(lang, 'events')}>{ui('nav.events')}</a></li>
+        <li><a href={href(lang, 'press')}>{ui('nav.press')}</a></li>
+        <li><a href={href(lang, 'gallery')}>{ui('nav.gallery')}</a></li>
+        <li><a href={href(lang, 'contact')}>{ui('nav.contact')}</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap footer-base">© {year} {t(site.name, lang)}. {ui('footer.rights')}</div>
+</footer>
+
+<style>
+  .footer { background: var(--navy); color: #c9cde0; margin-top: 2rem; font-size: 0.95rem; }
+  .footer a { color: #fff; }
+  .footer a:hover { color: var(--gold-soft); }
+  .footer h2 { color: var(--gold); font-family: var(--font-body); font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .footer-grid { display: grid; gap: 2rem; padding-block: 3rem 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .footer-brand { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: #fff; font-family: var(--font-display); line-height: 1.3; }
+  .footer ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; }
+  .footer-base { border-top: 1px solid rgb(255 255 255 / 12%); padding-block: 1.25rem; font-size: 0.85rem; }
+</style>

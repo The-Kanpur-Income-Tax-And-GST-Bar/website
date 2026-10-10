@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PressItem from '../../components/PressItem.astro';
+import { getLang, langPaths } from '../../lib/i18n';
+import { useUI } from '../../lib/ui';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ui = useUI(lang);
+const items = (await getCollection('press')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base lang={lang} path="press" title={ui('press.title')}>
+  <PageHeader title={ui('press.title')} lead={ui('press.lead')} />
+  <section class="section">
+    <div class="wrap list">
+      {items.map((item) => <PressItem item={item} lang={lang} />)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .list { display: grid; gap: 1rem; max-width: 48rem; }
+</style>

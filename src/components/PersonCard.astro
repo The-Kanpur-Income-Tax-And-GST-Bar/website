@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { t, type Lang } from '../lib/i18n';
+import { formatPhone } from '../lib/site';
+
+interface Props { person: CollectionEntry<'committee'>; lang: Lang; featured?: boolean }
+const { person, lang, featured = false } = Astro.props;
+const { name, role, phone, photo } = person.data;
+const initials = name.en.split(/\s+/).filter((w) => /^[A-Z]/.test(w)).map((w) => w[0]).slice(0, 2).join('');
+---
+<article class:list={['card', 'person', { featured }]}>
+  {photo
+    ? <Image src={photo} alt={t(name, lang)} width={160} height={160} class="avatar" />
+    : <div class="avatar avatar-initials" aria-hidden="true">{initials}</div>}
+  <div>
+    <p class="role">{t(role, lang)}</p>
+    <h3>{lang === 'hi' ? 'अधि.' : 'Adv.'} {t(name, lang)}</h3>
+    {phone && <a class="phone" href={`tel:+91${phone}`}>{formatPhone(phone)}</a>}
+  </div>
+</article>
+
+<style>
+  .person { display: flex; align-items: center; gap: 1rem; padding: 1rem; }
+  .avatar { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; flex: none; }
+  .avatar-initials { display: grid; place-items: center; background: var(--navy); color: var(--gold-soft); font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; border: 2px solid var(--gold); }
+  .role { margin: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); }
+  :lang(hi) .role { text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+  h3 { margin: 0.1rem 0 0.2rem; font-size: 1.1rem; }
+  .phone { font-size: 0.95rem; color: var(--muted); text-decoration: none; font-variant-numeric: tabular-nums; }
+  .phone:hover { color: var(--gold); }
+  .featured { flex-direction: column; text-align: center; padding: 1.25rem 0.75rem; border-top: 3px solid var(--gold); }
+  .featured .avatar { width: 6rem; height: 6rem; }
+  .featured .avatar-initials { font-size: 1.75rem; }
+</style>

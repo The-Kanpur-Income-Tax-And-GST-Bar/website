@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, t, type Lang } from '../lib/i18n';
+import { useUI } from '../lib/ui';
+
+interface Props { item: CollectionEntry<'press'>; lang: Lang }
+const { item, lang } = Astro.props;
+const ui = useUI(lang);
+const { outlet, date, url, headline, summary, language } = item.data;
+---
+<article class="card press">
+  <p class="meta"><strong>{outlet}</strong> · <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date, lang)}</time> · <span>{ui(language === 'hi' ? 'press.hindi' : 'press.english')}</span></p>
+  <h3 lang={language}>{headline[language] ?? headline.en}</h3>
+  {lang !== language && headline[lang] && <p class="translation">{headline[lang]}</p>}
+  {summary && <p>{t(summary, lang)}</p>}
+  <a href={url} target="_blank" rel="noopener">{ui('press.read')} ↗</a>
+</article>
+
+<style>
+  .press { padding: 1.25rem; border-left: 4px solid var(--gold); }
+  .meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .meta strong { color: var(--navy); }
+  h3 { font-size: 1.15rem; }
+  .translation { color: var(--muted); font-style: italic; margin-top: -0.25rem; }
+  a { font-weight: 700; }
+</style>

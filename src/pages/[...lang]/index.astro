@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Logo from '../../components/Logo.astro';
+import PersonCard from '../../components/PersonCard.astro';
+import EventCard from '../../components/EventCard.astro';
+import PressItem from '../../components/PressItem.astro';
+import { getCommittee, getEventsSorted, getSite } from '../../lib/site';
+import { getLang, href, langPaths, t } from '../../lib/i18n';
+import { useUI } from '../../lib/ui';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ui = useUI(lang);
+const site = await getSite();
+const officeBearers = (await getCommittee()).filter((p) => p.data.group === 'office');
+const events = (await getEventsSorted()).slice(0, 3);
+const press = (await getCollection('press')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 2);
+---
+<Base lang={lang} path="">
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <Logo size={168} ring class="hero-logo" />
+      <div>
+        <p class="eyebrow">{ui('est')} {site.established} · {lang === 'hi' ? 'पंजीकृत' : 'Registered'}</p>
+        <h1>{t(site.name, lang)} <span class="regd">{ui('regd')}</span></h1>
+        <p class="tagline">{ui('tagline')}</p>
+        <p class="registered">{t(site.registered, lang)}</p>
+        <div class="actions">
+          <a class="btn btn-gold" href={href(lang, 'events')}>{ui('cta.events')}</a>
+          <a class="btn btn-outline" href={href(lang, 'contact')}>{ui('cta.contact')}</a>
+          {site.whatsapp_url && <a class="btn btn-whatsapp" href={site.whatsapp_url} target="_blank" rel="noopener">{ui('cta.whatsapp')}</a>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>{ui('home.events')}</h2>
+        <a href={href(lang, 'events')}>{ui('home.events.all')} →</a>
+      </div>
+      <div class="grid">
+        {events.map((event) => <EventCard event={event} lang={lang} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>{ui('home.leadership')}</h2>
+        <a href={href(lang, 'committee')}>{ui('home.leadership.all')} →</a>
+      </div>
+      <div class="grid grid-people">
+        {officeBearers.map((person) => <PersonCard person={person} lang={lang} featured />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h2>{ui('home.about')}</h2>
+        {/* TODO: replace with the Association's founding story (placeholder until supplied). */}
+        <p class="placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <a href={href(lang, 'about')}>{ui('home.about.more')} →</a>
+      </div>
+      <div>
+        <div class="section-head">
+          <h2>{ui('home.press')}</h2>
+          <a href={href(lang, 'press')}>{ui('home.press.all')} →</a>
+        </div>
+        <div class="stack">
+          {press.map((item) => <PressItem item={item} lang={lang} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { background: radial-gradient(ellipse at 15% 0%, var(--navy-2), var(--navy) 60%); color: #e6e8f2; padding-block: clamp(2.5rem, 8vw, 5rem); position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: 6px; background: linear-gradient(90deg, var(--saffron) 0 33%, var(--gold) 33% 66%, var(--navy-2) 66%); }
+  .hero-inner { display: grid; gap: 1.5rem; align-items: center; }
+  .hero h1 { color: #fff; margin-top: 0.75rem; }
+  .regd { font-size: 0.55em; color: var(--gold-soft); white-space: nowrap; }
+  .tagline { font-size: 1.2rem; max-width: 38rem; }
+  .registered { color: var(--gold-soft); font-weight: 600; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .btn-outline { color: #fff; }
+  :global(.hero-logo) { width: 120px; height: 120px; }
+  @media (min-width: 48rem) {
+    .hero-inner { grid-template-columns: auto 1fr; gap: 3rem; }
+    :global(.hero-logo) { width: 200px; height: 200px; }
+  }
+  .band { background: #fff; border-block: 1px solid var(--line); }
+  .two-col { display: grid; gap: 2.5rem; }
+  @media (min-width: 56rem) { .two-col { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .stack { display: grid; gap: 1rem; }
+</style>

@@ -1,0 +1,106 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import PressItem from '../../../components/PressItem.astro';
+import { formatDate, getLang, href, t } from '../../../lib/i18n';
+import { useUI } from '../../../lib/ui';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.flatMap((event) =>
+    [undefined, 'hi'].map((lang) => ({ params: { lang, slug: event.id }, props: { event } })),
+  );
+}
+
+const { event } = Astro.props;
+const lang = getLang(Astro.params.lang);
+const ui = useUI(lang);
+const { title, date, time, venue, summary, guests, partners, poster, photos, kind, body_hi } = event.data;
+const { Content } = await render(event);
+const press = (await getCollection('press')).filter((p) => p.data.event?.id === event.id);
+const share = poster ?? photos[0]?.src;
+const shareImage = share ? (await getImage({ src: share, width: 1200, format: 'jpeg', quality: 80 })).src : undefined;
+---
+<Base lang={lang} path={`events/${event.id}`} title={t(title, lang)} description={t(summary, lang)} image={shareImage}>
+  <article>
+    <header class="event-header">
+      <div class="wrap">
+        <a class="back" href={href(lang, 'events')}>← {ui('events.back')}</a>
+        <p><span class="tag">{ui(`kind.${kind}`)}</span></p>
+        <h1>{t(title, lang)}</h1>
+        <p class="lead">{t(summary, lang)}</p>
+      </div>
+    </header>
+
+    <div class="wrap section layout">
+      <div class="content">
+        {poster && <Image src={poster} alt={t(title, lang)} width={1100} class="poster" />}
+        {lang === 'hi' && body_hi ? <p>{body_hi}</p> : <Content />}
+
+        {photos.length > 0 && (
+          <section>
+            <h2>{ui('events.photos')}</h2>
+            <div class="photos">
+              {photos.map((photo) => (
+                <figure>
+                  <a href={photo.src.src}><Image src={photo.src} alt={t(photo.caption, lang)} width={720} /></a>
+                  {photo.caption && <figcaption>{t(photo.caption, lang)}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {press.length > 0 && (
+          <section>
+            <h2>{ui('events.press')}</h2>
+            {press.map((item) => <PressItem item={item} lang={lang} />)}
+          </section>
+        )}
+      </div>
+
+      <aside class="card details">
+        <dl>
+          <dt>{ui('events.when')}</dt>
+          <dd><time datetime={date.toISOString().slice(0, 10)}>{formatDate(date, lang, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</time>{time && <><br />{time}</>}</dd>
+          <dt>{ui('events.where')}</dt>
+          <dd>{t(venue, lang)}</dd>
+          {guests.length > 0 && (
+            <>
+              <dt>{ui('events.guests')}</dt>
+              <dd>
+                <ul>{guests.map((g) => <li><strong>{t(g.name, lang)}</strong><br /><span>{t(g.role, lang)}</span></li>)}</ul>
+              </dd>
+            </>
+          )}
+          {partners && (
+            <>
+              <dt>{ui('events.partners')}</dt>
+              <dd>{t(partners, lang)}</dd>
+            </>
+          )}
+        </dl>
+      </aside>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .event-header { background: #fff; border-bottom: 1px solid var(--line); padding-block: 1.5rem 2rem; }
+  .back { display: inline-block; margin-bottom: 1rem; font-weight: 600; text-decoration: none; }
+  .layout { display: grid; gap: 2rem; }
+  @media (min-width: 56rem) { .layout { grid-template-columns: 1fr 20rem; align-items: start; } .details { position: sticky; top: 6rem; } }
+  .content > * + * { margin-top: 1.5rem; }
+  .poster { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; }
+  .photos { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+  figure { margin: 0; }
+  figure img { border-radius: var(--radius); width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.35rem; }
+  .details { padding: 1.5rem; border-top: 3px solid var(--gold); }
+  dt { font-size: 0.8rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
+  :lang(hi) dt { text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+  dd { margin: 0.2rem 0 1.1rem; }
+  dd ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  dd span { color: var(--muted); font-size: 0.9rem; }
+</style>

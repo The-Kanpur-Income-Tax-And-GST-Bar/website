@@ -1,0 +1,20 @@
+# Association-wide facts. Shown in the header, footer, home and contact pages.
+name:
+  en: The Kanpur Income Tax and GST Bar Association
+  hi: द कानपुर इनकम टैक्स एंड जीएसटी बार एसोसिएशन
+short_name:
+  en: Kanpur Income Tax & GST Bar
+  hi: कानपुर इनकम टैक्स एवं जीएसटी बार
+registered:
+  en: Registered with the Bar Council of U.P., Allahabad
+  hi: बार काउंसिल ऑफ़ उत्तर प्रदेश, इलाहाबाद में पंजीकृत
+established: 2019
+address:
+  en: 104A/274, Ram Bagh, Near Leela Shah Dharamshala, Kanpur 208012, Uttar Pradesh
+  hi: 104A/274, राम बाग, लीला शाह धर्मशाला के पास, कानपुर 208012, उत्तर प्रदेश
+email: thekanpurincometaxgstbar@gmail.com
+# Committee member ids whose phone numbers appear on the Contact page.
+contact_people: [umesh-chandra-rawat, rajesh-kumar-srivastava]
+# Paste the WhatsApp group/channel invite link here. Leave empty to hide the button.
+whatsapp_url: ""
+map_query: 104A/274 Ram Bagh Kanpur 208012

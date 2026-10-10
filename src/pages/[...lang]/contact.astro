@@ -1,0 +1,55 @@
+---
+import { getEntries } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PersonCard from '../../components/PersonCard.astro';
+import { getSite } from '../../lib/site';
+import { getLang, langPaths, t } from '../../lib/i18n';
+import { useUI } from '../../lib/ui';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ui = useUI(lang);
+const site = await getSite();
+const people = await getEntries(site.contact_people);
+const mapQuery = encodeURIComponent(site.map_query);
+---
+<Base lang={lang} path="contact" title={ui('contact.title')}>
+  <PageHeader title={ui('contact.title')} lead={ui('contact.lead')} />
+  <section class="section">
+    <div class="wrap layout">
+      <div class="stack">
+        <div class="card block">
+          <h2>{ui('contact.address')}</h2>
+          <p>{t(site.name, lang)} {ui('regd')}<br />{t(site.address, lang)}</p>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`} target="_blank" rel="noopener">{ui('contact.map')} ↗</a>
+        </div>
+        <div class="card block">
+          <h2>{ui('contact.email')}</h2>
+          <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+        </div>
+        {site.whatsapp_url && <a class="btn btn-whatsapp" href={site.whatsapp_url} target="_blank" rel="noopener">{ui('cta.whatsapp')}</a>}
+        <h2>{ui('contact.phone')}</h2>
+        {people.map((person) => <PersonCard person={person} lang={lang} />)}
+      </div>
+      <iframe
+        class="map"
+        title={ui('contact.address')}
+        src={`https://maps.google.com/maps?q=${mapQuery}&output=embed`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .layout { display: grid; gap: 2rem; }
+  @media (min-width: 56rem) { .layout { grid-template-columns: 1fr 1.2fr; align-items: start; } }
+  .stack { display: grid; gap: 1rem; }
+  .stack > h2 { margin: 1rem 0 0; }
+  .block { padding: 1.25rem; }
+  .block h2 { font-size: 1.15rem; }
+  .block p:last-child { margin: 0; }
+  .btn-whatsapp { justify-self: start; }
+  .map { width: 100%; min-height: 22rem; height: 100%; border: 0; border-radius: var(--radius); box-shadow: var(--shadow); background: #e8e5dc; }
+</style>

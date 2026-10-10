@@ -1,0 +1,39 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import EventCard from '../../../components/EventCard.astro';
+import { getEventsSorted, isUpcoming } from '../../../lib/site';
+import { getLang, langPaths } from '../../../lib/i18n';
+import { useUI } from '../../../lib/ui';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ui = useUI(lang);
+const events = await getEventsSorted();
+const upcoming = events.filter((e) => isUpcoming(e.data.date)).reverse();
+const past = events.filter((e) => !isUpcoming(e.data.date));
+---
+<Base lang={lang} path="events" title={ui('events.title')}>
+  <PageHeader title={ui('events.title')} lead={ui('events.lead')} />
+  <section class="section">
+    <div class="wrap">
+      <h2>{ui('events.upcoming')}</h2>
+      {upcoming.length
+        ? <div class="grid">{upcoming.map((event) => <EventCard event={event} lang={lang} />)}</div>
+        : <p class="empty">{ui('events.none')}</p>}
+    </div>
+  </section>
+  {past.length > 0 && (
+    <section class="section past">
+      <div class="wrap">
+        <h2>{ui('events.past')}</h2>
+        <div class="grid">{past.map((event) => <EventCard event={event} lang={lang} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .past { padding-top: 0; }
+  .empty { color: var(--muted); }
+</style>

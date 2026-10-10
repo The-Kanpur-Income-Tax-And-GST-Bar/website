@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# The repo is public. These contain phone numbers / Zoom credentials we don't publish.
+references/letterhead.jpg
+references/2026-10-10-gst-webinar-invite.jpeg

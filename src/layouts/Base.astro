@@ -1,0 +1,62 @@
+---
+import '@fontsource/playfair-display/600.css';
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/source-sans-3/400.css';
+import '@fontsource/source-sans-3/600.css';
+import '@fontsource/source-sans-3/700.css';
+import '@fontsource/noto-sans-devanagari/devanagari-400.css';
+import '@fontsource/noto-sans-devanagari/devanagari-600.css';
+import '@fontsource/noto-serif-devanagari/devanagari-700.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getSite } from '../lib/site';
+import { href, t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  /** Language-neutral path of this page, e.g. '' or 'events/some-slug'. Used for the language switch. */
+  path: string;
+  title?: string;
+  description?: string;
+  /** Root-relative URL of a JPEG share image (WhatsApp/Facebook previews). Defaults to public/og-default.jpg. */
+  image?: string;
+}
+
+const { lang, path, title, description, image } = Astro.props;
+const site = await getSite();
+const siteName = `${t(site.name, lang)} ${lang === 'hi' ? '(पंजीकृत)' : '(Regd.)'}`;
+const fullTitle = title ? `${title} · ${t(site.short_name, lang)}` : siteName;
+const desc = description ?? `${t(site.registered, lang)}. ${lang === 'hi' ? 'स्थापना' : 'Est.'} ${site.established}.`;
+const canonical = new URL(href(lang, path), Astro.site);
+const ogImage = new URL(image ?? `${import.meta.env.BASE_URL}og-default.jpg`, Astro.site);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL(href('en', path), Astro.site)} />
+    <link rel="alternate" hreflang="hi" href={new URL(href('hi', path), Astro.site)} />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+    <meta name="theme-color" content="#14213d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title ?? siteName} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'hi' ? 'hi_IN' : 'en_IN'} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <Header lang={lang} path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

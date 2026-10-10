@@ -1,0 +1,95 @@
+---
+import Logo from './Logo.astro';
+import { getSite } from '../lib/site';
+import { href, t, type Lang } from '../lib/i18n';
+import { useUI } from '../lib/ui';
+
+interface Props { lang: Lang; path: string }
+const { lang, path } = Astro.props;
+const ui = useUI(lang);
+const site = await getSite();
+const other: Lang = lang === 'en' ? 'hi' : 'en';
+
+const nav = [
+  ['', ui('nav.home')],
+  ['about', ui('nav.about')],
+  ['committee', ui('nav.committee')],
+  ['events', ui('nav.events')],
+  ['press', ui('nav.press')],
+  ['gallery', ui('nav.gallery')],
+  ['contact', ui('nav.contact')],
+] as const;
+
+const section = path.split('/')[0];
+---
+<a class="sr-only" href="#main">Skip to content</a>
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <span>{lang === 'hi' ? 'स्थापना' : 'Est.'} {site.established} · {t(site.registered, lang)}</span>
+    <a href={href(other, path)} hreflang={other} lang={other} aria-label={ui('lang.switchLabel')}>{ui('lang.switch')}</a>
+  </div>
+</div>
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href={href(lang)}>
+      <Logo size={52} />
+      <span class="brand-text">
+        <span class="brand-name">{t(site.short_name, lang)}</span>
+        <span class="brand-sub">{lang === 'hi' ? 'बार एसोसिएशन (पंजीकृत), कानपुर' : 'Bar Association (Regd.), Kanpur'}</span>
+      </span>
+    </a>
+    <details class="menu">
+      <summary>{ui('nav.menu')}</summary>
+      <nav aria-label="Main">
+        <ul>
+          {nav.map(([p, label]) => (
+            <li><a href={href(lang, p)} aria-current={section === p ? 'page' : undefined}>{label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .topbar { background: var(--navy); color: #d9dcea; font-size: 0.8rem; }
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 2.25rem; }
+  .topbar span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .topbar a { color: #fff; font-weight: 700; text-decoration: none; border: 1px solid rgb(255 255 255 / 40%); padding: 0.1rem 0.7rem; border-radius: 999px; white-space: nowrap; }
+  .topbar a:hover { color: var(--gold-soft); border-color: var(--gold-soft); }
+
+  .header { background: #fff; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 10; }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.5rem; }
+  .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; min-width: 0; }
+  .brand-text { display: flex; flex-direction: column; min-width: 0; }
+  .brand-name { font-family: var(--font-display); font-weight: 700; color: var(--navy); font-size: 1.05rem; line-height: 1.2; }
+  .brand-sub { font-size: 0.78rem; color: var(--muted); }
+
+  .menu summary {
+    list-style: none; cursor: pointer; font-weight: 700; color: var(--navy);
+    border: 2px solid var(--navy); border-radius: 999px; padding: 0.35rem 0.9rem;
+  }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu nav { position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 3px solid var(--gold); box-shadow: var(--shadow); }
+  .menu ul { list-style: none; margin: 0; padding: 0.5rem var(--gutter) 1rem; }
+  .menu a { display: block; padding: 0.7rem 0; text-decoration: none; font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--line); }
+  .menu a[aria-current='page'] { color: var(--gold); }
+
+  @media (min-width: 64rem) {
+    .menu summary { display: none; }
+    .menu nav { position: static; display: block; box-shadow: none; border: 0; background: none; }
+    .menu ul { display: flex; gap: 1.4rem; padding: 0; }
+    .menu a { border: 0; padding: 0.25rem 0; border-bottom: 2px solid transparent; }
+    .menu a[aria-current='page'] { border-bottom-color: var(--gold); color: var(--navy); }
+    .menu a:hover { color: var(--gold); }
+  }
+</style>
+
+<script>
+  // On desktop the menu is always visible; keep the <details> open so its content renders.
+  const menu = document.querySelector<HTMLDetailsElement>('.menu');
+  const mq = window.matchMedia('(min-width: 64rem)');
+  const sync = () => { if (menu) menu.open = mq.matches; };
+  sync();
+  mq.addEventListener('change', sync);
+</script>

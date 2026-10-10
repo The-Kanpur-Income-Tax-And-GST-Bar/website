@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/i18n';
+---
+<Base lang="en" path="" title="Page not found">
+  <section class="section">
+    <div class="wrap">
+      <h1>Page not found</h1>
+      <p lang="hi">पृष्ठ नहीं मिला।</p>
+      <p><a href={href('en')}>Go to the home page</a> · <a href={href('hi')} lang="hi">मुख्य पृष्ठ पर जाएँ</a></p>
+    </div>
+  </section>
+</Base>

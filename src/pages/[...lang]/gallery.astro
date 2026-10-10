@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getEventsSorted } from '../../lib/site';
+import { formatDate, getLang, href, langPaths, t } from '../../lib/i18n';
+import { useUI } from '../../lib/ui';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ui = useUI(lang);
+const albums = (await getEventsSorted())
+  .map((event) => ({
+    event,
+    images: [
+      ...(event.data.poster ? [{ src: event.data.poster, caption: event.data.title }] : []),
+      ...event.data.photos,
+    ],
+  }))
+  .filter((album) => album.images.length > 0);
+---
+<Base lang={lang} path="gallery" title={ui('gallery.title')}>
+  <PageHeader title={ui('gallery.title')} lead={ui('gallery.lead')} />
+  {albums.map(({ event, images }) => (
+    <section class="section album">
+      <div class="wrap">
+        <div class="section-head">
+          <h2><a href={href(lang, `events/${event.id}`)}>{t(event.data.title, lang)}</a></h2>
+          <span class="date">{formatDate(event.data.date, lang)}</span>
+        </div>
+        <div class="photos">
+          {images.map((img) => (
+            <a href={img.src.src} class="photo">
+              <Image src={img.src} alt={t(img.caption, lang) || t(event.data.title, lang)} width={600} />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style>
+  .album + .album { padding-top: 0; }
+  h2 a { color: inherit; text-decoration: none; }
+  h2 a:hover { color: var(--gold); }
+  .date { color: var(--muted); }
+  .photos { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); transition: transform 0.2s; }
+  .photo:hover img { transform: scale(1.02); }
+</style>
