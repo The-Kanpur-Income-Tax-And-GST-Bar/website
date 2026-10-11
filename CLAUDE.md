@@ -32,7 +32,7 @@ Pushing to `main` publishes it in about 2 minutes.
 | Events and seminars, one file each | `src/content/events/YYYY-MM-DD-short-name.md` |
 | Event posters and photos | `src/assets/events/YYYY-MM-DD-short-name/` |
 | Press coverage, one file each | `src/content/press/YYYY-MM-DD-outlet-topic.yaml` |
-| About page text (founding story, aims) | `src/pages/[...lang]/about.astro` (currently placeholder) |
+| About page text (founding story) and the short version on the home page | `src/lib/about.ts` |
 | Fixed interface words (menu labels, buttons) | `src/lib/ui.ts` |
 | Plan, roadmap, open questions | `PLAN.md` |
 | Original source material (posters, press notes). The letterhead and webinar invite are kept locally only (git-ignored, the repo is public) | `references/` |
@@ -110,11 +110,10 @@ summary:
 ### Update the WhatsApp link, email or address
 Edit `src/data/site.yaml`. The WhatsApp button appears on Home and Contact as soon as `whatsapp_url` is set.
 
-### Replace the About page placeholder
-In `src/pages/[...lang]/about.astro`, replace the lorem-ipsum paragraphs and the `aims` list with the real text.
-Add Hindi as well: put the English and Hindi in an `{ en, hi }` object and render it with `t(..., lang)`, the same
-way other pages do. Then remove the `placeholder-note` box and the `placeholder` classes. Do the same for
-the "About the Association" teaser on the home page (`src/pages/[...lang]/index.astro`).
+### Change the About page text
+Edit `src/lib/about.ts`. `story` holds one `{ en, hi }` entry per paragraph, in display order, and `teaser` is the short
+version on the home page. The "Aims & objectives" list was removed until the Association supplies it. To add it back,
+add an `aims` list to `about.ts` (both languages) and render it in `src/pages/[...lang]/about.astro`.
 
 ## Preview, check, publish
 ```sh

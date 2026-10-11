@@ -8,6 +8,7 @@ import PressItem from '../../components/PressItem.astro';
 import { getCommittee, getEventsSorted, getSite } from '../../lib/site';
 import { getLang, href, langPaths, t } from '../../lib/i18n';
 import { useUI } from '../../lib/ui';
+import { teaser } from '../../lib/about';
 
 export const getStaticPaths = langPaths;
 const lang = getLang(Astro.params.lang);
@@ -63,8 +64,7 @@ const press = (await getCollection('press')).sort((a, b) => b.data.date.getTime(
     <div class="wrap two-col">
       <div>
         <h2>{ui('home.about')}</h2>
-        {/* TODO: replace with the Association's founding story (placeholder until supplied). */}
-        <p class="placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <p>{t(teaser, lang)}</p>
         <a href={href(lang, 'about')}>{ui('home.about.more')} →</a>
       </div>
       <div>
