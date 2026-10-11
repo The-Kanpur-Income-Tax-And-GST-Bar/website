@@ -7,12 +7,12 @@ type Text = { en: string; hi: string };
 
 export const story: Text[] = [
   {
-    en: 'The Kanpur Income Tax and GST Bar Association was founded in 2019 by Adv. Rajesh Kumar Srivastava, Adv. Pankaj Kumar Srivastava, Adv. Ramjeet Singh and other members.',
-    hi: 'द कानपुर इनकम टैक्स एंड जीएसटी बार एसोसिएशन की स्थापना वर्ष 2019 में अधिवक्ता राजेश कुमार श्रीवास्तव, अधिवक्ता पंकज कुमार श्रीवास्तव, अधिवक्ता रामजीत सिंह और अन्य सदस्यों ने मिलकर की।',
+    en: 'The Kanpur Income Tax and GST Bar Association was founded in 2019 by Adv. Rajesh Kumar Srivastava, Adv. Pankaj Kumar Srivastava, Adv. Ramji Singh and other members.',
+    hi: 'द कानपुर इनकम टैक्स एंड जीएसटी बार एसोसिएशन की स्थापना वर्ष 2019 में अधिवक्ता राजेश कुमार श्रीवास्तव, अधिवक्ता पंकज कुमार श्रीवास्तव, अधिवक्ता रामजी सिंह और अन्य सदस्यों ने मिलकर की।',
   },
   {
-    en: 'At that time no income tax association in Kanpur was registered with the Bar Council, which was causing difficulty for members. The members met and decided to form an association for Income Tax and GST and to register it with the Bar Council of Uttar Pradesh.',
-    hi: 'उस समय कानपुर में आयकर की कोई भी एसोसिएशन बार काउंसिल से पंजीकृत नहीं थी, जिससे सदस्यों को दिक्कत हो रही थी। इस पर सदस्यों ने बैठक की और तय किया कि आयकर और जीएसटी की एक संस्था बनाई जाए और उसे बार काउंसिल ऑफ उत्तर प्रदेश से पंजीकृत कराया जाए।',
+    en: 'At that time no income tax association in Kanpur was registered with the Bar Council of Uttar Pradesh, which was causing difficulty for members. The members met and decided to form an association for Income Tax and GST and to register it with the Bar Council of Uttar Pradesh.',
+    hi: 'उस समय कानपुर में आयकर की कोई भी एसोसिएशन बार काउंसिल ऑफ उत्तर प्रदेश से पंजीकृत नहीं थी, जिससे सदस्यों को दिक्कत हो रही थी। इस पर सदस्यों ने बैठक की और तय किया कि आयकर और जीएसटी की एक संस्था बनाई जाए और उसे बार काउंसिल ऑफ उत्तर प्रदेश से पंजीकृत कराया जाए।',
   },
   {
     en: 'It is the first Income Tax and GST association in Kanpur to be registered with the Bar Council of Uttar Pradesh. Membership is open only to advocates who practise Income Tax and GST law.',
