@@ -109,6 +109,9 @@ summary:
 
 ### Update the WhatsApp link, email or address
 Edit `src/data/site.yaml`. The WhatsApp button appears on Home and Contact as soon as `whatsapp_url` is set.
+The map on the Contact page uses `map_query`, which is the pin as `"latitude,longitude"` (not the address text, because
+Google cannot find plot numbers). To set the exact pin: open Google Maps on the office, press and hold (or right-click) the
+spot, and copy the two numbers shown.
 
 ### Change the About page text
 Edit `src/lib/about.ts`. `story` holds one `{ en, hi }` entry per paragraph, in display order, and `teaser` is the short

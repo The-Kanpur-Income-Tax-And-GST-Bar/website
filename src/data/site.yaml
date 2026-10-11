@@ -17,4 +17,6 @@ email: thekanpurincometaxgstbar@gmail.com
 contact_people: [umesh-chandra-rawat, rajesh-kumar-srivastava]
 # Paste the WhatsApp group/channel invite link here. Leave empty to hide the button.
 whatsapp_url: ""
-map_query: 104A/274 Ram Bagh Kanpur 208012
+# Map pin as "latitude,longitude". Searching by address put the pin in the wrong place, because Google has no
+# entry for 104A/274. This point is the neighbouring plot (104A/275, Ram Bagh). Replace it with the exact pin of the office.
+map_query: "26.4712363,80.3279965"
