@@ -7,8 +7,8 @@ type Text = { en: string; hi: string };
 
 export const story: Text[] = [
   {
-    en: 'The Kanpur Income Tax and GST Bar Association was founded in 2019 by Adv. Rajesh Kumar Srivastava, Adv. Pankaj Kumar Srivastava, Adv. Ramji Singh and other members.',
-    hi: 'द कानपुर इनकम टैक्स एंड जीएसटी बार एसोसिएशन की स्थापना वर्ष 2019 में अधिवक्ता राजेश कुमार श्रीवास्तव, अधिवक्ता पंकज कुमार श्रीवास्तव, अधिवक्ता रामजी सिंह और अन्य सदस्यों ने मिलकर की।',
+    en: 'The Kanpur Income Tax and GST Bar Association was founded in 2019 by Adv. Rajesh Kumar Srivastava, Adv. Pankaj Kumar Srivastava, Adv. Ramjeet Singh and other members.',
+    hi: 'द कानपुर इनकम टैक्स एंड जीएसटी बार एसोसिएशन की स्थापना वर्ष 2019 में अधिवक्ता राजेश कुमार श्रीवास्तव, अधिवक्ता पंकज कुमार श्रीवास्तव, अधिवक्ता रामजीत सिंह और अन्य सदस्यों ने मिलकर की।',
   },
   {
     en: 'At that time no income tax association in Kanpur was registered with the Bar Council, which was causing difficulty for members. The members met and decided to form an association for Income Tax and GST and to register it with the Bar Council of Uttar Pradesh.',
