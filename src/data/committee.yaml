@@ -8,80 +8,94 @@
   group: office
   name: { en: Kriti Srivastava, hi: कृति श्रीवास्तव }
   role: { en: Chairperson (Admin & Legal Affairs), hi: चेयरपर्सन (प्रशासन एवं विधिक मामले) }
+  photo: ../assets/committee/kriti-srivastava.jpg
 
 - id: umesh-chandra-rawat
   group: office
   name: { en: Umesh Chandra Rawat, hi: उमेश चन्द्र रावत }
   role: { en: President, hi: अध्यक्ष }
   phone: "8400801315"
+  photo: ../assets/committee/umesh-chandra-rawat.jpg
 
 - id: shyam-prakash-nigam
   group: office
   name: { en: S. P. Nigam, hi: एस. पी. निगम }
   role: { en: Vice President, hi: उपाध्यक्ष }
   phone: "6393920928"
+  photo: ../assets/committee/shyam-prakash-nigam.jpg
 
 - id: rajesh-kumar-srivastava
   group: office
   name: { en: Rajesh Kumar Srivastava, hi: राजेश कुमार श्रीवास्तव }
   role: { en: General Secretary, hi: महासचिव }
   phone: "9336117831"
+  photo: ../assets/committee/rajesh-kumar-srivastava.jpg
 
 - id: prashant-gupta
   group: secretary
   name: { en: Prashant Gupta, hi: प्रशांत गुप्ता }
   role: { en: Secretary (Income Tax), hi: सचिव (आयकर) }
   phone: "9452831498"
+  photo: ../assets/committee/prashant-gupta.jpg
 
 - id: gyanendra-kumar-singh
   group: secretary
   name: { en: Gyanendra Kumar Singh, hi: ज्ञानेन्द्र कुमार सिंह }
   role: { en: Secretary (GST), hi: सचिव (जीएसटी) }
   phone: "9021785530"
+  photo: ../assets/committee/gyanendra-kumar-singh.jpg
 
 - id: ramjeet-rai
   group: secretary
   name: { en: Ramjeet Rai, hi: रामजीत राय }
   role: { en: Secretary (Culture), hi: सचिव (सांस्कृतिक) }
   phone: "7668338556"
+  photo: ../assets/committee/ramjeet-rai.jpg
 
 - id: sumit-kumar
   group: secretary
   name: { en: Sumit Kumar, hi: सुमित कुमार }
   role: { en: Secretary (Sports), hi: सचिव (खेल) }
   phone: "8181881800"
+  photo: ../assets/committee/sumit-kumar.jpg
 
 - id: vikas-verma
   group: secretary
   name: { en: Vikas Verma, hi: विकास वर्मा }
   role: { en: Secretary (Library), hi: सचिव (पुस्तकालय) }
   phone: "9807194221"
+  photo: ../assets/committee/vikas-verma.jpg
 
 - id: abdullah-khan
   group: secretary
   name: { en: Abdullah Khan, hi: अब्दुल्लाह ख़ान }
   role: { en: Secretary (Media), hi: सचिव (मीडिया) }
   phone: "8896430445"
+  photo: ../assets/committee/abdullah-khan.jpg
 
 - id: ankit-shukla
   group: executive
   name: { en: Ankit Shukla, hi: अंकित शुक्ला }
   role: { en: Executive Member, hi: कार्यकारिणी सदस्य }
   phone: "8299528678"
+  photo: ../assets/committee/ankit-shukla.jpg
 
 - id: mohd-nadeem-khan
   group: executive
   name: { en: Mohd Nadeem Khan, hi: मोहम्मद नदीम ख़ान }
   role: { en: Executive Member, hi: कार्यकारिणी सदस्य }
   phone: "9956122918"
+  photo: ../assets/committee/mohd-nadeem-khan.jpg
 
 - id: radhika-joshi
   group: executive
   name: { en: Radhika Joshi, hi: राधिका जोशी }
   role: { en: Executive Member, hi: कार्यकारिणी सदस्या }
+  photo: ../assets/committee/radhika-joshi.jpg
 
 - id: shwetank-srivastava
   group: executive
   name: { en: Shwetank Srivastava, hi: श्वेतांक श्रीवास्तव }
   role: { en: Executive Member, hi: कार्यकारिणी सदस्य }
   phone: "7309848806"
+  photo: ../assets/committee/shwetank-srivastava.jpg
