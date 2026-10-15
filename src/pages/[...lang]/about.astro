@@ -4,7 +4,12 @@ import PageHeader from '../../components/PageHeader.astro';
 import { getSite } from '../../lib/site';
 import { getLang, langPaths, t } from '../../lib/i18n';
 import { useUI } from '../../lib/ui';
+import { Image } from 'astro:assets';
 import { story } from '../../lib/about';
+import groupPhoto from '../../assets/about/oath-2026-27-group.jpg';
+import lamp1 from '../../assets/about/oath-2026-27-lamp-1.jpg';
+import lamp2 from '../../assets/about/oath-2026-27-lamp-2.jpg';
+import lamp3 from '../../assets/about/oath-2026-27-lamp-3.jpg';
 
 export const getStaticPaths = langPaths;
 const lang = getLang(Astro.params.lang);
@@ -18,6 +23,21 @@ const site = await getSite();
       <div class="story">
         <h2>{ui('about.story')}</h2>
         {story.map((paragraph) => <p>{t(paragraph, lang)}</p>)}
+        <section class="oath">
+          <h2>{ui('about.photos')}</h2>
+          <figure class="oath-main">
+            <a href={groupPhoto.src}><Image src={groupPhoto} alt={ui('about.photo.group')} width={1100} /></a>
+            <figcaption>{ui('about.photo.group')}</figcaption>
+          </figure>
+          <div class="oath-row">
+            {[lamp1, lamp2, lamp3].map((photo) => (
+              <figure>
+                <a href={photo.src}><Image src={photo} alt={ui('about.photo.lamp')} width={520} /></a>
+              </figure>
+            ))}
+          </div>
+          <p class="oath-caption">{ui('about.photo.lamp')}</p>
+        </section>
       </div>
       <aside class="card facts">
         <h2>{ui('about.facts')}</h2>
@@ -37,6 +57,13 @@ const site = await getSite();
 <style>
   .layout { display: grid; gap: 2.5rem; }
   @media (min-width: 56rem) { .layout { grid-template-columns: 1fr 20rem; align-items: start; } }
+  .oath { margin-top: 2.5rem; }
+  .oath figure { margin: 0; }
+  .oath img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); }
+  .oath-main img { aspect-ratio: 1280 / 665; object-fit: cover; }
+  .oath figcaption, .oath-caption { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+  .oath-row { display: grid; gap: 0.75rem; grid-template-columns: repeat(3, 1fr); margin-top: 0.75rem; }
+  .oath-row img { aspect-ratio: 4 / 3; object-fit: cover; }
   .facts { padding: 1.5rem; border-top: 3px solid var(--gold); }
   .facts h2 { font-size: 1.25rem; }
   dl { margin: 0; }

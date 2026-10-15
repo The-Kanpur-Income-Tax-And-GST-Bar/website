@@ -1,0 +1,89 @@
+---
+import { getEntries } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PersonCard from '../../components/PersonCard.astro';
+import { getSite } from '../../lib/site';
+import { getLang, langPaths, t } from '../../lib/i18n';
+import { useUI } from '../../lib/ui';
+import { fees, importantNote, intro, steps } from '../../lib/membership';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ui = useUI(lang);
+const site = await getSite();
+const people = await getEntries(site.contact_people);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const formUrl = `${base}/membership/membership-application-form.pdf`;
+const qrUrl = `${base}/membership/payment-qr.jpg`;
+---
+<Base lang={lang} path="membership" title={ui('membership.title')} description={ui('membership.lead')}>
+  <PageHeader title={ui('membership.title')} lead={`${t(site.name, lang)} ${ui('regd')}`} />
+  <section class="section">
+    <div class="wrap layout">
+      <div class="main">
+        <p class="intro">{t(intro, lang)}</p>
+
+        <h2>{ui('membership.fees')}</h2>
+        <div class="fees">
+          {fees.map((fee) => (
+            <div class="card fee">
+              <h3>{t(fee.title, lang)}</h3>
+              <p class="amount">{fee.amount}</p>
+              <p class="words">({t(fee.words, lang)})</p>
+              <p class="fee-note">{t(fee.note, lang)}</p>
+            </div>
+          ))}
+        </div>
+
+        <h2>{ui('membership.apply')}</h2>
+        <ol class="steps">
+          {steps.map((step) => <li>{t(step, lang)}</li>)}
+        </ol>
+
+        <p class="note"><strong>{ui('membership.note')}:</strong> {t(importantNote, lang)}</p>
+
+        <h2>{ui('membership.enquiries')}</h2>
+        <div class="enquiry">
+          <p>{t(site.name, lang)} {ui('regd')}<br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+          {people.map((person) => <PersonCard person={person} lang={lang} />)}
+        </div>
+      </div>
+
+      <aside class="side">
+        <div class="card box">
+          <h2>{ui('membership.form')}</h2>
+          <p>{ui('membership.formHelp')}</p>
+          <a class="btn btn-gold" href={formUrl} download>{ui('membership.download')} ↓</a>
+        </div>
+        <div class="card box">
+          <h2>{ui('membership.pay')}</h2>
+          <p>{ui('membership.scan')}</p>
+          <img class="qr" src={qrUrl} alt={ui('membership.qrAlt')} width="505" height="630" loading="lazy" />
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .layout { display: grid; gap: 2.5rem; }
+  @media (min-width: 56rem) { .layout { grid-template-columns: 1fr 21rem; align-items: start; } .side { position: sticky; top: 6rem; } }
+  .intro { font-size: 1.1rem; }
+  .main h2 { margin-top: 2rem; }
+  .fees { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+  .fee { padding: 1.25rem; border-top: 3px solid var(--gold); }
+  .fee h3 { margin-bottom: 0.25rem; }
+  .amount { font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; color: var(--navy); margin: 0; line-height: 1.2; }
+  .words { color: var(--muted); font-size: 0.9rem; margin: 0 0 0.6rem; }
+  .fee-note { margin: 0; }
+  .steps { padding-left: 1.4rem; display: grid; gap: 0.75rem; margin: 0 0 1.5rem; }
+  .steps li::marker { color: var(--gold); font-weight: 700; }
+  .note { border-left: 3px solid var(--gold); background: var(--gold-soft); padding: 0.75rem 1rem; border-radius: 0 var(--radius) var(--radius) 0; }
+  .enquiry { display: grid; gap: 1rem; }
+  .enquiry > p { margin: 0; }
+  .side { display: grid; gap: 1rem; }
+  .box { padding: 1.25rem; border-top: 3px solid var(--gold); }
+  .box h2 { font-size: 1.25rem; }
+  .qr { width: 100%; max-width: 18rem; margin-inline: auto; border-radius: var(--radius); background: #fff; }
+</style>

@@ -19,8 +19,8 @@ export const story: Text[] = [
     hi: 'कानपुर में आयकर और जीएसटी की यह पहली संस्था है जो बार काउंसिल ऑफ उत्तर प्रदेश से पंजीकृत हुई। इसकी सदस्यता केवल उन अधिवक्ताओं के लिए है जो आयकर और जीएसटी की प्रैक्टिस करते हैं।',
   },
   {
-    en: 'The oath-taking ceremony for 2026–27 was held in May 2026. The chief guest was Senior Advocate Shri P.M. Chaudhary, former President of the Sales Tax Bar Association.',
-    hi: 'संस्था का शपथ ग्रहण समारोह मई 2026 में संपन्न हुआ, जो वर्ष 2026-27 के लिए था। समारोह के मुख्य अतिथि वरिष्ठ अधिवक्ता श्री पी.एम. चौधरी, पूर्व अध्यक्ष, सेल्स टैक्स बार एसोसिएशन थे।',
+    en: 'The oath-taking ceremony for 2026–27 was held on 26 April 2026. The chief guest was Senior Advocate Shri P.M. Chaudhary, former President of the Sales Tax Bar Association.',
+    hi: 'संस्था का शपथ ग्रहण समारोह 26 अप्रैल 2026 को संपन्न हुआ, जो वर्ष 2026-27 के लिए था। समारोह के मुख्य अतिथि वरिष्ठ अधिवक्ता श्री पी.एम. चौधरी, पूर्व अध्यक्ष, सेल्स टैक्स बार एसोसिएशन थे।',
   },
   {
     en: 'Since then the Association has held a number of programmes, and it will keep doing so.',
