@@ -63,7 +63,24 @@ const qrUrl = `${base}/membership/payment-qr.jpg`;
         <div class="card box">
           <h2>{ui('membership.pay')}</h2>
           <p>{ui('membership.scan')}</p>
-          <img class="qr" src={qrUrl} alt={ui('membership.qrAlt')} width="505" height="630" loading="lazy" />
+          <div class="qr-wrap" data-qr>
+            <img class="qr" src={qrUrl} alt={ui('membership.qrAlt')} width="505" height="630" loading="lazy" />
+            <button type="button" class="btn btn-gold qr-reveal" data-qr-reveal hidden>{ui('membership.reveal')}</button>
+          </div>
+          <!-- The QR starts blurred and is shown clearly after a tap. Without JavaScript it stays clear. -->
+          <script is:inline>
+            (function () {
+              var wrap = document.querySelector('[data-qr]');
+              var btn = document.querySelector('[data-qr-reveal]');
+              if (!wrap || !btn) return;
+              wrap.classList.add('locked');
+              btn.hidden = false;
+              btn.addEventListener('click', function () {
+                wrap.classList.remove('locked');
+                btn.hidden = true;
+              });
+            })();
+          </script>
         </div>
       </aside>
     </div>
@@ -89,5 +106,9 @@ const qrUrl = `${base}/membership/payment-qr.jpg`;
   .side { display: grid; gap: 1rem; }
   .box { padding: 1.25rem; border-top: 3px solid var(--gold); }
   .box h2 { font-size: 1.25rem; }
-  .qr { width: 100%; max-width: 18rem; margin-inline: auto; border-radius: var(--radius); background: #fff; }
+  .qr-wrap { position: relative; max-width: 18rem; margin-inline: auto; }
+  .qr { display: block; width: 100%; border-radius: var(--radius); background: #fff; transition: filter 0.4s ease; }
+  .qr-wrap.locked .qr { filter: blur(14px); pointer-events: none; user-select: none; }
+  .qr-reveal[hidden] { display: none; }
+  .qr-reveal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: max-content; max-width: 90%; }
 </style>
