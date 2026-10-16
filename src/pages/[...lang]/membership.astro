@@ -1,5 +1,5 @@
 ---
-import { getEntries } from 'astro:content';
+import { getCollection, getEntries } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import PersonCard from '../../components/PersonCard.astro';
@@ -12,7 +12,11 @@ export const getStaticPaths = langPaths;
 const lang = getLang(Astro.params.lang);
 const ui = useUI(lang);
 const site = await getSite();
-const people = await getEntries(site.contact_people);
+const contacts = await getEntries(site.contact_people);
+// Membership enquiries also go to Kriti Srivastava (shown without a phone number, as for all women members).
+const committee = await getCollection('committee');
+const extra = committee.filter((p) => p.id === 'kriti-srivastava' && !contacts.some((c) => c.id === p.id));
+const people = [...contacts, ...extra];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const formUrl = `${base}/membership/membership-application-form.pdf`;
 const qrUrl = `${base}/membership/payment-qr.jpg`;
