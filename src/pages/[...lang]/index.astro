@@ -5,7 +5,7 @@ import Logo from '../../components/Logo.astro';
 import PersonCard from '../../components/PersonCard.astro';
 import EventCard from '../../components/EventCard.astro';
 import PressItem from '../../components/PressItem.astro';
-import { getCommittee, getEventsSorted, getSite } from '../../lib/site';
+import { getCommittee, getEventsSorted, getSite, isUpcoming } from '../../lib/site';
 import { getLang, href, langPaths, t } from '../../lib/i18n';
 import { useUI } from '../../lib/ui';
 import { teaser } from '../../lib/about';
@@ -15,7 +15,11 @@ const lang = getLang(Astro.params.lang);
 const ui = useUI(lang);
 const site = await getSite();
 const officeBearers = (await getCommittee()).filter((p) => p.data.group === 'office');
-const events = (await getEventsSorted()).slice(0, 3);
+const allEvents = await getEventsSorted();
+// Upcoming: soonest first, at most 2. The section is hidden when there are none.
+const upcoming = allEvents.filter((e) => isUpcoming(e.data.date)).reverse().slice(0, 2);
+// Recent: newest first, at most 3.
+const recent = allEvents.filter((e) => !isUpcoming(e.data.date)).slice(0, 3);
 const press = (await getCollection('press')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 2);
 ---
 <Base lang={lang} path="">
@@ -29,12 +33,26 @@ const press = (await getCollection('press')).sort((a, b) => b.data.date.getTime(
         <p class="registered">{t(site.registered, lang)}</p>
         <div class="actions">
           <a class="btn btn-gold" href={href(lang, 'events')}>{ui('cta.events')}</a>
+          <a class="btn btn-outline" href={href(lang, 'membership')}>{ui('cta.membership')}</a>
           <a class="btn btn-outline" href={href(lang, 'contact')}>{ui('cta.contact')}</a>
           {site.whatsapp_url && <a class="btn btn-whatsapp" href={site.whatsapp_url} target="_blank" rel="noopener">{ui('cta.whatsapp')}</a>}
         </div>
       </div>
     </div>
   </section>
+
+  {upcoming.length > 0 && (
+    <section class="section upcoming">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>{ui('home.events.upcoming')}</h2>
+        </div>
+        <div class="grid">
+          {upcoming.map((event) => <EventCard event={event} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="wrap">
@@ -43,7 +61,7 @@ const press = (await getCollection('press')).sort((a, b) => b.data.date.getTime(
         <a href={href(lang, 'events')}>{ui('home.events.all')} →</a>
       </div>
       <div class="grid">
-        {events.map((event) => <EventCard event={event} lang={lang} />)}
+        {recent.map((event) => <EventCard event={event} lang={lang} />)}
       </div>
     </div>
   </section>
@@ -95,6 +113,7 @@ const press = (await getCollection('press')).sort((a, b) => b.data.date.getTime(
     .hero-inner { grid-template-columns: auto 1fr; gap: 3rem; }
     :global(.hero-logo) { width: 200px; height: 200px; }
   }
+  .upcoming { background: var(--gold-soft); border-bottom: 1px solid var(--line); }
   .band { background: #fff; border-block: 1px solid var(--line); }
   .two-col { display: grid; gap: 2.5rem; }
   @media (min-width: 56rem) { .two-col { grid-template-columns: 1fr 1fr; gap: 4rem; } }
