@@ -136,6 +136,7 @@ gh run watch         # wait for the deploy to finish, then share the live link
 Live site: https://thekanpurincometaxandgstbar.com (Hindi: https://thekanpurincometaxandgstbar.com/hi/).
 The domain is registered at Cloudflare (renews 17 Oct 2028, auto-renew on). Keep its DNS records on "DNS only" (grey cloud).
 Never delete `public/CNAME`: it keeps the domain connected to GitHub Pages.
+Never delete the TXT records at Cloudflare: one keeps Google Search Console verified, the others stop fake emails from the domain.
 
 ## When the build fails
 `npm run build` names the file and field, e.g. `events → 2027-02-05-budget-seminar: date: Invalid date`.

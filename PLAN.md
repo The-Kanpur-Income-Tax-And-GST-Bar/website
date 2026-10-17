@@ -68,10 +68,9 @@ Live at **https://thekanpurincometaxandgstbar.com** since 17 Oct 2026.
 
 ## Next steps
 1. ✅ **Custom domain** live (17 Oct 2026): `public/CNAME`, `site` in `astro.config.mjs`, GitHub Pages custom domain + Enforce HTTPS.
-2. **Google Search Console** (after the domain is live)
-   - Add a *Domain* property for thekanpurincometaxandgstbar.com and verify it with the DNS TXT record.
-   - Submit `https://thekanpurincometaxandgstbar.com/sitemap-index.xml`.
-   - Request indexing for the home page, `/hi/`, About, Committee and Membership.
+2. ✅ **Google Search Console** (17 Oct 2026): Domain property owned by the Association's Gmail, verified through a
+   `google-site-verification=…` TXT record at Cloudflare (**never delete it**), sitemap submitted, key pages sent for indexing.
+   The email anti-spoofing records are also in place: TXT `@` `v=spf1 -all` and TXT `_dmarc` `v=DMARC1; p=reject; …`.
 3. **Google Business Profile** for the registered office, so the Association shows up in Maps and name searches. Link it to the website.
 4. **WhatsApp:** no link for now. When there is one, set `whatsapp_url` in `src/data/site.yaml` and the buttons appear.
 5. Phase 2 pages (Notices first), then Phase 3.
