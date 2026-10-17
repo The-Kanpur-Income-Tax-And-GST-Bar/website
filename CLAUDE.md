@@ -124,7 +124,7 @@ add an `aims` list to `about.ts` (both languages) and render it in `src/pages/[.
 ## Preview, check, publish
 ```sh
 npm install          # first time only
-npm run dev          # live preview at http://localhost:4321/website/  (Hindi: /website/hi/)
+npm run dev          # live preview at http://localhost:4321/  (Hindi: /hi/)
 npm run build        # MUST pass before publishing
 ```
 Then, **after the member confirms**:
@@ -133,8 +133,9 @@ git add -A && git commit -m "Add Budget 2027 seminar"
 git push
 gh run watch         # wait for the deploy to finish, then share the live link
 ```
-Live site: https://the-kanpur-income-tax-and-gst-bar.github.io/website/. It moves to https://thekanpurincometaxandgstbar.com once the domain is live;
-the switch-over steps are in `PLAN.md` → Next steps.
+Live site: https://thekanpurincometaxandgstbar.com (Hindi: https://thekanpurincometaxandgstbar.com/hi/).
+The domain is registered at Cloudflare (renews 17 Oct 2028, auto-renew on). Keep its DNS records on "DNS only" (grey cloud).
+Never delete `public/CNAME`: it keeps the domain connected to GitHub Pages.
 
 ## When the build fails
 `npm run build` names the file and field, e.g. `events → 2027-02-05-budget-seminar: date: Invalid date`.

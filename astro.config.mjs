@@ -2,12 +2,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Until the custom domain is live, GitHub Pages serves the site under /website/.
-// When thekanpurincometaxandgstbar.com is live: set `site` to it, delete `base`, and add public/CNAME
-// (see "Custom domain" in PLAN.md).
+// Served from the custom domain (public/CNAME). DNS is at Cloudflare: four A records + www CNAME to GitHub Pages,
+// set to "DNS only" (grey cloud).
 export default defineConfig({
-  site: 'https://the-kanpur-income-tax-and-gst-bar.github.io',
-  base: '/website',
+  site: 'https://thekanpurincometaxandgstbar.com',
   trailingSlash: 'always',
   integrations: [
     sitemap({

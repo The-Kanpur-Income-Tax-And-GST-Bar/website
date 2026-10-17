@@ -4,7 +4,7 @@ Living plan. Builders: Arjit + Claude. Maintainers: Arjit's father and other mem
 through their own Claude Code sessions (see `CLAUDE.md`).
 
 **Status (17 Oct 2026):** Phase 1 is live, and Membership (from Phase 2) is done.
-Live at https://the-kanpur-income-tax-and-gst-bar.github.io/website/ until the custom domain is set up.
+Live at **https://thekanpurincometaxandgstbar.com** since 17 Oct 2026.
 
 ## Goals (in priority order)
 1. **Credibility and visibility.** A clean, official-looking site that shows the association is
@@ -22,7 +22,7 @@ Live at https://the-kanpur-income-tax-and-gst-bar.github.io/website/ until the c
 | Members: advocates practising Income Tax and GST law only | Association |
 | Fees: ₹1,000 new membership (entry fee + first year), ₹500 annual renewal. Payment by UPI QR, cheque or cash | Association |
 | Payment QR: Central Bank of India merchant QR in the Association's name ("THE KANPUR INCOME TAX") | decoded 17 Oct 2026 |
-| Domain: **thekanpurincometaxandgstbar.com** (chosen 17 Oct 2026, not yet live) | Arjit |
+| Domain: **thekanpurincometaxandgstbar.com**, registered at Cloudflare on 17 Oct 2026 for 2 years (expires 17 Oct 2028, auto-renew on). DNS: 4 A records + `www` CNAME to GitHub Pages, DNS only (grey cloud) | Cloudflare / whois |
 
 ## Tech decisions
 - **Astro**, static output, deployed to **GitHub Pages** through GitHub Actions on every push to `main`,
@@ -67,14 +67,7 @@ Live at https://the-kanpur-income-tax-and-gst-bar.github.io/website/ until the c
 - **Repo is public:** the letterhead (all phone numbers) and the webinar invite (Zoom ID) stay git-ignored in `references/`.
 
 ## Next steps
-1. **Custom domain: thekanpurincometaxandgstbar.com** (once bought)
-   - Register it in the Association's name with its Gmail as contact, and turn on auto-renew.
-   - DNS at the registrar: four `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`,
-     and a `CNAME` for `www` → `the-kanpur-income-tax-and-gst-bar.github.io`.
-   - In the repo: add `public/CNAME` containing `thekanpurincometaxandgstbar.com`; in `astro.config.mjs` set
-     `site: 'https://thekanpurincometaxandgstbar.com'` and delete `base`. Push.
-   - In GitHub → Settings → Pages: set the custom domain and tick **Enforce HTTPS** once the certificate is issued.
-   - Regenerate `public/og-default.jpg` only if the design changes. Its URL updates automatically.
+1. ✅ **Custom domain** live (17 Oct 2026): `public/CNAME`, `site` in `astro.config.mjs`, GitHub Pages custom domain + Enforce HTTPS.
 2. **Google Search Console** (after the domain is live)
    - Add a *Domain* property for thekanpurincometaxandgstbar.com and verify it with the DNS TXT record.
    - Submit `https://thekanpurincometaxandgstbar.com/sitemap-index.xml`.

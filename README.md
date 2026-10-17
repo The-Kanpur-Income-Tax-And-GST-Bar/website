@@ -4,7 +4,7 @@ Bilingual (English + हिन्दी) static site, built with [Astro](https:/
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321/website/
+npm run dev      # http://localhost:4321/
 npm run build    # type-checks content, then builds to dist/
 ```
 
