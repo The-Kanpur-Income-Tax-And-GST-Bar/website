@@ -81,6 +81,7 @@ const qrUrl = `${base}/membership/payment-qr.jpg`;
               });
             })();
           </script>
+          <p class="other-pay">{ui('membership.otherPay')}</p>
         </div>
       </aside>
     </div>
@@ -109,6 +110,7 @@ const qrUrl = `${base}/membership/payment-qr.jpg`;
   .qr-wrap { position: relative; max-width: 18rem; margin-inline: auto; }
   .qr { display: block; width: 100%; border-radius: var(--radius); background: #fff; transition: filter 0.4s ease; }
   .qr-wrap.locked .qr { filter: blur(14px); pointer-events: none; user-select: none; }
+  .other-pay { margin: 0.9rem 0 0; font-size: 0.95rem; color: var(--muted); }
   .qr-reveal[hidden] { display: none; }
   .qr-reveal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: max-content; max-width: 90%; }
 </style>

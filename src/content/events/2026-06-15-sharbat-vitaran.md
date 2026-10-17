@@ -31,7 +31,7 @@ photos:
   - src: ../../assets/events/2026-06-15-sharbat-vitaran/photo-9.jpg
     caption: { en: At the sharbat stall, hi: शरबत स्टॉल पर }
 body_hi: |
-  कानपुर के अधिवक्तागण बड़ी संख्या में उपस्थित हुए। आयकर बार एसोसिएशन के अध्यक्ष एवं महामंत्री भी कार्यक्रम में उपस्थित रहे। इनके साथ कानपुर बार एसोसिएशन के पूर्व अध्यक्ष एवं पूर्व महामंत्री तथा वर्तमान उपाध्यक्ष, और सेल्स टैक्स बार एसोसिएशन के पूर्व महामंत्री एवं पूर्व अध्यक्ष ने भी कार्यक्रम में उपस्थिति दर्ज कराई।
+  कानपुर के अधिवक्तागण बड़ी संख्या में उपस्थित हुए। आयकर बार एसोसिएशन (एक अलग संस्था) के अध्यक्ष एवं महामंत्री भी कार्यक्रम में उपस्थित रहे। इनके साथ कानपुर बार एसोसिएशन के पूर्व अध्यक्ष एवं पूर्व महामंत्री तथा वर्तमान उपाध्यक्ष, और सेल्स टैक्स बार एसोसिएशन के पूर्व महामंत्री एवं पूर्व अध्यक्ष ने भी कार्यक्रम में उपस्थिति दर्ज कराई।
 ---
 
-Advocates of Kanpur attended in large numbers. The President and General Secretary of the Income Tax Bar Association were also present. They were joined by the former President and former General Secretary and the current Vice President of the Kanpur Bar Association, and by the former General Secretary and former President of the Sales Tax Bar Association.
+Advocates of Kanpur attended in large numbers. The President and General Secretary of the Income Tax Bar Association (a separate association) were also present. They were joined by the former President and former General Secretary and the current Vice President of the Kanpur Bar Association, and by the former General Secretary and former President of the Sales Tax Bar Association.

@@ -1,106 +1,88 @@
 # Website plan: The Kanpur Income Tax and GST Bar Association (Regd.)
 
-Living plan. Builders: Arjit + Claude. Maintainers after launch: Arjit's father and other
-members, editing through their own Claude Code sessions.
+Living plan. Builders: Arjit + Claude. Maintainers: Arjit's father and other members, editing
+through their own Claude Code sessions (see `CLAUDE.md`).
+
+**Status (17 Oct 2026):** Phase 1 is live, and Membership (from Phase 2) is done.
+Live at https://the-kanpur-income-tax-and-gst-bar.github.io/website/ until the custom domain is set up.
 
 ## Goals (in priority order)
 1. **Credibility and visibility.** A clean, official-looking site that shows the association is
-   real, active and well run.
-2. **Useful to members.** Notices, membership, professional links, newsletters.
+   real, active and well run, and that people can find on Google.
+2. **Useful to members.** Membership, notices, professional links, newsletters.
 
-## What we know
+## Key facts
 | Fact | Source |
 |---|---|
-| Full name: The Kanpur Income Tax and GST Bar Association (Regd.) | letterhead |
-| Registered with the Bar Council of U.P., Allahabad (Prayagraj) | letterhead |
-| Established 2019 | letterhead, banner |
+| Full name: The Kanpur Income Tax and GST Bar Association (Regd.). Always written with "The" | letterhead, Association |
+| Registered with the Bar Council of Uttar Pradesh, Allahabad. **The first Income Tax and GST association in Kanpur to be registered with it** (the selling point) | letterhead, Association |
+| Established 2019. Founders: Adv. Rajesh Kumar Srivastava, Adv. Pankaj Kumar Srivastava, Adv. Ramji Singh and others | Association |
 | Registered office: 104A/274, Ram Bagh, Near Leela Shah Dharamshala, Kanpur 208012 | letterhead |
 | Email: thekanpurincometaxgstbar@gmail.com | letterhead |
-| Members: advocates only | Arjit |
-| Membership fee ₹1,000; form exists; UPI QR exists | Arjit (form details pending) |
-| Events: Plantation programme 9 Oct 2026 (JIMMC, with the Forest Dept); GST Council webinar 10 Oct 2026 (Shri D.K. Pandey) | banners, invite |
-| Press: newsjungal.com, 9 Oct 2026 | `references/press-2026-10-09-newsjungal.md` |
-
-The raw material is in `references/`.
+| Members: advocates practising Income Tax and GST law only | Association |
+| Fees: ₹1,000 new membership (entry fee + first year), ₹500 annual renewal. Payment by UPI QR, cheque or cash | Association |
+| Payment QR: Central Bank of India merchant QR in the Association's name ("THE KANPUR INCOME TAX") | decoded 17 Oct 2026 |
+| Domain: **thekanpurincometaxandgstbar.com** (chosen 17 Oct 2026, not yet live) | Arjit |
 
 ## Tech decisions
-- **Astro**, static output, deployed to **GitHub Pages** through a GitHub Actions workflow.
-  Arjit has admin access on the org repo.
-  - Until the domain is bought the site is served at `the-kanpur-income-tax-and-gst-bar.github.io/website/`,
-    so `base` is set to `/website`. When the domain exists: add `public/CNAME`, remove `base`, and turn on HTTPS.
-- **No CMS.** Maintainers edit through Claude, so the repo itself is the CMS:
-  - **Typed content collections.** Each notice, event, press item, newsletter and committee member
-    is its own small Markdown or YAML file, validated by a zod schema. A bad edit fails the build
-    instead of shipping a broken page.
-  - **`CLAUDE.md` runbook** (a core deliverable). It is written for the father's Claude session:
-    how to add a notice or event, upload photos, change office bearers, add Hindi text, preview, and publish.
-- **Bilingual (English + Hindi).**
-  - Routes: `/` is English and `/hi/` is Hindi (Astro i18n), with a language toggle in the header.
-  - Content: each entry has `title_en`/`title_hi`-style fields, plus a body file per language where needed.
-    Missing Hindi falls back to English.
-  - Static UI text lives in one dictionary file per language.
-  - Font: Noto Sans Devanagari or Mukta for Hindi.
-  - **A member reviews all Hindi**, especially names written in Devanagari. Claude only drafts it.
-- **Mobile-first.** Most visits will come from WhatsApp links. Every event and notice page gets a
-  proper share preview (Open Graph image, title, description).
-- **No backend.** The membership form is a downloadable PDF and/or a Google Form; payment uses the UPI QR image plus a `upi://pay` deep link.
+- **Astro**, static output, deployed to **GitHub Pages** through GitHub Actions on every push to `main`,
+  plus a daily rebuild at 06:00 IST so past events move out of "Upcoming".
+- **No CMS.** The repo is the CMS: typed content collections (YAML/Markdown) validated by zod schemas, so a bad edit
+  fails the build instead of shipping a broken page. `CLAUDE.md` is the maintainer runbook.
+- **Bilingual:** English at `/`, Hindi at `/hi/`. Every text field has `en` and `hi`, and missing Hindi falls back to English.
+- **Mobile-first, WhatsApp-ready:** every page has an Open Graph share image (a JPEG, for WhatsApp).
+- **SEO:** `sitemap-index.xml` (with en/hi hreflang alternates) and `robots.txt` are generated at build time.
+- **No backend:** membership is a downloadable PDF form plus the payment QR.
 
-## Site map
-### Phase 1: credibility (launch)
-- **Home.** Logo, name, "Est. 2019 · Registered with the Bar Council of U.P.", next or latest event,
-  latest notices, a few photos, and a WhatsApp group button.
-- **About.** Who we are, aims and objectives, and the constitution or bye-laws as a PDF (if shareable).
-- **Committee.** Chairperson, President, VP, General Secretary, the portfolio secretaries (Income Tax,
-  GST, Culture, Sports, Library, Media) and the executive members, with photos where available.
-- **Events and seminars.** Upcoming and past events. Each has a detail page with poster, date, venue, guests, photos and a press link.
-  Seeded with the 9 Oct plantation programme and the 10 Oct GST webinar.
-- **In the news / press.** Press clippings and links. Seeded with the newsjungal article.
-- **Gallery.** Photos grouped by event.
-- **Contact.** Address, Google Map of the registered office, email, official phone(s), WhatsApp link.
-- Hindi versions of all of the above.
+## Pages
+| Page | Status |
+|---|---|
+| Home: hero, upcoming/recent events, office bearers, About teaser, press | ✅ live |
+| About: founding story (en/hi), oath-taking ceremony 2026–27 photos, at-a-glance facts | ✅ live |
+| Committee: office bearers, appointed office bearers, secretaries, executive members, all with headshots | ✅ live |
+| Events and seminars: detail pages with poster, photos, guests, YouTube recording, press link | ✅ live (4 events) |
+| In the news | ✅ live (1 clipping) |
+| Gallery: photos grouped by event | ✅ live |
+| Membership: fees, how to apply, form PDF, payment QR (blurred until tapped), enquiry contacts | ✅ live |
+| Contact: address, map, email, President and General Secretary phones | ✅ live (map pin approximate, see below) |
+| Notices and circulars | Phase 2 |
+| Useful links: IT e-filing, GST portal, CBDT, CBIC, ITAT, Allahabad HC, Bar Council of U.P. (link to official due-date calendars, never our own dates) | Phase 2 |
+| Representations | Phase 2 |
+| Newsletter archive | Phase 2 |
+| Member directory (opt-in only, BCI Rule 36) | Phase 3 |
 
-### Phase 2: member utility
-- **Notices and circulars.** Association announcements (AGM, elections, meetings, condolences), with PDF attachments.
-- **Membership.** Eligibility (advocates enrolled with the Bar Council), ₹1,000 fee, the form, UPI QR, and the process.
-- **Useful links.** Income Tax e-filing, GST portal, CBDT, CBIC, ITAT, Allahabad High Court, Bar Council of U.P.
-  For due dates we **link to official calendars rather than maintaining our own dates**: a wrong
-  date on a tax bar's own site would damage exactly the credibility we're building.
-- **Representations.** Letters and memoranda sent to authorities.
-- **Newsletter archive.** PDFs by month or issue.
+## Decisions
+- **Titles:** Kriti Srivastava is **Chairperson (Admin & Legal Affairs)**. **D.K. Pandey is the Association's
+  Chairman (Taxation)**: a member *appointed* to the role (not elected) who runs the Association's webinars.
+  He appears on the Committee page under "Appointed office bearers".
+- **Spellings:** Prashant Gupta · Gyanendra Kumar Singh · Rajesh Kumar Srivastava · founder Ramji Singh.
+- **Phones:** publish mobiles for all committee members **except women members** (Kriti Srivastava, Radhika Joshi).
+  Their headshots are published, with their consent (confirmed 17 Oct 2026).
+- **Registration wording:** "(Regd.)" / "Registered" / "(पंजीकृत)". Never "®".
+- **Logo:** redrawn as SVG from the letterhead (`src/components/Logo.astro`).
+- **Membership form:** the pre-printed "S.No.150" is blanked to "S.No. ____" (the office numbers forms by hand), and the
+  payment line offers Cash / Cheque / UPI with a UTR field. The original scan is in git history.
+- **Sharbat programme write-up:** the "Income Tax Bar Association" office bearers mentioned there belong to a *separate* association.
+- **Map pin:** leave the approximate pin (neighbouring plot 104A/275) for now.
+- **Repo is public:** the letterhead (all phone numbers) and the webinar invite (Zoom ID) stay git-ignored in `references/`.
 
-### Phase 3: directory
-- **Member directory.** Name, enrolment number, practice area and contact, **opt-in only** and kept to
-  plain information in line with Bar Council of India Rule 36 (no solicitation or advertising wording).
+## Next steps
+1. **Custom domain: thekanpurincometaxandgstbar.com** (once bought)
+   - Register it in the Association's name with its Gmail as contact, and turn on auto-renew.
+   - DNS at the registrar: four `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`,
+     and a `CNAME` for `www` → `the-kanpur-income-tax-and-gst-bar.github.io`.
+   - In the repo: add `public/CNAME` containing `thekanpurincometaxandgstbar.com`; in `astro.config.mjs` set
+     `site: 'https://thekanpurincometaxandgstbar.com'` and delete `base`. Push.
+   - In GitHub → Settings → Pages: set the custom domain and tick **Enforce HTTPS** once the certificate is issued.
+   - Regenerate `public/og-default.jpg` only if the design changes. Its URL updates automatically.
+2. **Google Search Console** (after the domain is live)
+   - Add a *Domain* property for thekanpurincometaxandgstbar.com and verify it with the DNS TXT record.
+   - Submit `https://thekanpurincometaxandgstbar.com/sitemap-index.xml`.
+   - Request indexing for the home page, `/hi/`, About, Committee and Membership.
+3. **Google Business Profile** for the registered office, so the Association shows up in Maps and name searches. Link it to the website.
+4. **WhatsApp:** no link for now. When there is one, set `whatsapp_url` in `src/data/site.yaml` and the buttons appear.
+5. Phase 2 pages (Notices first), then Phase 3.
 
-## Design direction
-- Two palettes are in use today: saffron, blue and red on the letterhead and banners, and navy and gold on the webinar invite.
-  **Proposal: navy + gold as the primary palette** (institutional, legal), with a small saffron accent from the letterhead.
-- Logo: the advocate-band emblem with a "Kanpur" ribbon. We need a clean source file. Failing that, we recreate it as an SVG.
-- Serif display face for headings (e.g. Playfair Display, matching the invite) and a clean sans for body text, plus a Devanagari pair.
-
-## Decisions (10 Oct 2026)
-- **Titles:** Kriti Srivastava is **Chairperson (Admin & Legal Affairs)**. D.K. Pandey was an *external speaker*, not a committee member.
-- **Spellings:** Prashant Gupta · Gyanendra Kumar Singh · Rajesh Kumar Srivastava.
-- **Phones:** publish mobiles for all office bearers **except women members** (Kriti Srivastava, Radhika Joshi). Their cards show name and role only.
-- **Registration wording:** "(Regd.)" / "Registered". Never "®".
-- **Logo:** redraw as SVG from the letterhead.
-- **Headshots, founding story, aims:** lorem-ipsum placeholders for now. Arjit will supply the real ones.
-
-## Still pending from Arjit
-1. WhatsApp link.
-2. Membership form details and the UPI QR image.
-3. Headshots, founding story, aims and objectives (placeholders until then).
-4. Domain. Candidates: `kitgba.in`, `kanpurtaxbar.in`, `kanpurtaxbar.org`.
-5. Whether the constitution can be published.
-
-## Publishing hygiene
-- Past webinar pages drop the Zoom meeting ID and passcode.
-- Strip phone numbers from posters if we publish them as images, or get consent.
-
-## Build order
-1. Scaffold Astro, the GitHub Actions deploy, and the base layout (header, footer, language toggle, fonts, palette).
-2. Content collections and schemas (events, press, committee, notices, newsletters).
-3. Phase 1 pages and seed content, in English, then Hindi.
-4. `CLAUDE.md` maintainer runbook. Test it by doing a "fresh session adds a notice" dry run.
-5. Domain, `CNAME`, HTTPS.
-6. Phase 2, then Phase 3.
+## Still open
+- Whether the constitution or bye-laws can be published.
+- More press coverage, and photos or recordings for the 10 Oct GST Council webinar.

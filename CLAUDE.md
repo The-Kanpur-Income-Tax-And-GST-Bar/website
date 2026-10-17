@@ -33,6 +33,8 @@ Pushing to `main` publishes it in about 2 minutes.
 | Event posters and photos | `src/assets/events/YYYY-MM-DD-short-name/` |
 | Press coverage, one file each | `src/content/press/YYYY-MM-DD-outlet-topic.yaml` |
 | About page text (founding story) and the short version on the home page | `src/lib/about.ts` |
+| Membership page text and fees | `src/lib/membership.ts` |
+| Membership form (PDF) and payment QR. Replace a file by saving the new one under the same name | `public/membership/` |
 | Fixed interface words (menu labels, buttons) | `src/lib/ui.ts` |
 | Plan, roadmap, open questions | `PLAN.md` |
 | Original source material (posters, press notes). The letterhead and webinar invite are kept locally only (git-ignored, the repo is public) | `references/` |
@@ -100,7 +102,8 @@ summary:
 
 ### Change the committee (after elections, a new role, a correction)
 - Edit `src/data/committee.yaml`. **The order in the file is the order on the site.**
-- `group` is `office` (top four), `secretary` or `executive`.
+- `group` is `office` (top four elected office bearers), `appointed` (members appointed to a role rather than
+  elected, e.g. D.K. Pandey, Chairman (Taxation)), `secretary` or `executive`.
 - `id` is the name in lowercase with hyphens. Keep ids stable, because `site.yaml` → `contact_people` refers to them.
 - `phone` is a 10-digit mobile number in quotes. **Leave it out for women members** (golden rule 1).
 - To add a headshot: save it as `src/assets/committee/<id>.jpg` (square, at least 400×400 px) and add
@@ -130,7 +133,8 @@ git add -A && git commit -m "Add Budget 2027 seminar"
 git push
 gh run watch         # wait for the deploy to finish, then share the live link
 ```
-Live site: https://the-kanpur-income-tax-and-gst-bar.github.io/website/ (it changes to the custom domain once that is set up).
+Live site: https://the-kanpur-income-tax-and-gst-bar.github.io/website/. It moves to https://thekanpurincometaxandgstbar.com once the domain is live;
+the switch-over steps are in `PLAN.md` → Next steps.
 
 ## When the build fails
 `npm run build` names the file and field, e.g. `events → 2027-02-05-budget-seminar: date: Invalid date`.

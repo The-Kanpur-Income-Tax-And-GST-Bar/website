@@ -13,7 +13,7 @@ summary:
   hi: "सदस्यों के लिए वेबिनार: 2026 में जीएसटी लिटिगेशन, ASMT-10 से GSTAT तक की पूरी यात्रा।"
 guests:
   - name: { en: Shri D.K. Pandey, hi: श्री डी.के. पाण्डेय }
-    role: { en: "Speaker · Advocate, High Court · Chairman (Taxation)", hi: "वक्ता · अधिवक्ता, उच्च न्यायालय · चेयरमैन (टैक्सेशन)" }
+    role: { en: "Speaker · Chairman (Taxation) of the Association · Advocate, High Court", hi: "वक्ता · एसोसिएशन के चेयरमैन (टैक्सेशन) · अधिवक्ता, उच्च न्यायालय" }
 video: https://www.youtube.com/watch?v=fBxOr0orZL0
 body_hi: "एसोसिएशन के पदाधिकारियों उमेश चन्द्र रावत (अध्यक्ष), एस. पी. निगम (उपाध्यक्ष) और राजेश कुमार श्रीवास्तव (महासचिव) द्वारा आयोजित।"
 ---

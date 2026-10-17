@@ -12,6 +12,7 @@ const ui = useUI(lang);
 const people = await getCommittee();
 const groups = [
   ['office', ui('committee.office')],
+  ['appointed', ui('committee.appointed')],
   ['secretary', ui('committee.secretary')],
   ['executive', ui('committee.executive')],
 ] as const;

@@ -13,5 +13,5 @@ summary:
   hi: जीएसटी काउंसिल बैठक के प्रमुख निर्णयों और उनके व्यावहारिक प्रभाव पर सदस्यों के लिए वेबिनार।
 guests:
   - name: { en: Shri D.K. Pandey, hi: श्री डी.के. पाण्डेय }
-    role: { en: "Speaker · Advocate, High Court", hi: "वक्ता · अधिवक्ता, उच्च न्यायालय" }
+    role: { en: "Speaker · Chairman (Taxation) of the Association · Advocate, High Court", hi: "वक्ता · एसोसिएशन के चेयरमैन (टैक्सेशन) · अधिवक्ता, उच्च न्यायालय" }
 ---

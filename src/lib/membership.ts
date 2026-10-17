@@ -48,8 +48,8 @@ export const steps: Text[] = [
     hi: 'अपने नामांकन प्रमाण पत्र की फोटोकॉपी और आधार कार्ड की फोटोकॉपी संलग्न करें।',
   },
   {
-    en: 'Pay the prescribed membership fee by scanning the QR code on this page. Keep the payment receipt or screenshot and submit it along with the form.',
-    hi: 'इस पृष्ठ पर दिए गए क्यूआर कोड को स्कैन करके निर्धारित सदस्यता शुल्क का भुगतान करें। भुगतान की रसीद या स्क्रीनशॉट सुरक्षित रखें और उसे फॉर्म के साथ जमा करें।',
+    en: 'Pay the prescribed membership fee by UPI (scan the QR code on this page), by cheque, or in cash at the registered office. Tick the payment method on the form and fill in the cheque details or the UPI transaction (UTR) number. If you pay by UPI, keep the receipt or screenshot and submit it along with the form.',
+    hi: 'निर्धारित सदस्यता शुल्क का भुगतान UPI (इस पृष्ठ पर दिए गए क्यूआर कोड को स्कैन करके), चेक द्वारा, या पंजीकृत कार्यालय में नकद करें। फॉर्म में भुगतान का तरीका चिह्नित करें और चेक का विवरण या UPI ट्रांज़ैक्शन (UTR) नंबर भरें। UPI से भुगतान करने पर उसकी रसीद या स्क्रीनशॉट सुरक्षित रखें और फॉर्म के साथ जमा करें।',
   },
   {
     en: 'Submit the completed form to the General Secretary at the registered office. Your application will be checked, and your membership will be confirmed once it is approved under the Association’s constitution and rules.',

@@ -30,7 +30,7 @@ const committee = defineCollection({
   }),
   schema: ({ image }) =>
     z.object({
-      group: z.enum(['office', 'secretary', 'executive']),
+      group: z.enum(['office', 'appointed', 'secretary', 'executive']),
       name: text,
       role: text,
       phone: z.string().regex(/^\d{10}$/, 'phone must be a 10-digit mobile number').optional(),

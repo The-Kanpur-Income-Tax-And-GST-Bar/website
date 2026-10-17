@@ -1,5 +1,6 @@
 # Office bearers and executive committee, in display order.
-# group: office | secretary | executive
+# group: office | appointed | secretary | executive
+#   (appointed = members appointed to a role by the committee rather than elected)
 # phone: 10-digit mobile. Leave it out to hide the number (policy: women members' numbers are not published).
 # photo: optional, file name inside src/assets/committee/ (e.g. umesh-chandra-rawat.jpg)
 # Hindi names and roles are drafts; a member should check them.
@@ -30,6 +31,11 @@
   role: { en: General Secretary, hi: महासचिव }
   phone: "9336117831"
   photo: ../assets/committee/rajesh-kumar-srivastava.jpg
+
+- id: dk-pandey
+  group: appointed
+  name: { en: D.K. Pandey, hi: डी.के. पाण्डेय }
+  role: { en: Chairman (Taxation), hi: चेयरमैन (टैक्सेशन) }
 
 - id: prashant-gupta
   group: secretary
